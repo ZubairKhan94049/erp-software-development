@@ -1,0 +1,55 @@
+
+@font-face {
+    font-family:'OldEnglish';
+    src: url(fonts/OldeEnglish.ttf);
+}
+
+@font-face {
+    font-family: 'MonotypeCorsive';
+    src: url(fonts/MonotypeCorsiva.ttf);
+}
+
+
+.universityname{
+    font-size: 200%;
+}
+.monotypefontstyle{
+    font-family: 'MonotypeCorsive';
+}
+
+.sameTextFont{
+    font-size: 18px;
+}
+
+
+.studentname{
+    font-size: 200%;
+    font-weight: bold;
+}
+.fathername{
+    font-size: 200%;
+}
+.departmentname{
+    font-size: 200%;
+}
+.degreename{
+    font-size: 200%;
+}
+
+.oldEnglishFontStyle{
+    font-family: 'OldEnglish';
+}
+
+.registrar{
+    padding-top: 90px;
+    font-family: 'MonotypeCorsive';
+}
+
+.regNumber{
+    font-size: 15px;
+}
+
+.viceChancellor{
+    padding-top: 80px;
+    font-family: 'MonotypeCorsive';
+}

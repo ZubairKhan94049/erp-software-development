@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="paperformat_degree" model="report.paperformat">
+        <field name="name">Degree</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">3</field>
+        <field name="margin_bottom">3</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">3</field>
+        <field name="dpi">80</field>
+    </record>
+    <report id="report_degree" string="Degree" model="um.degree" report_type="qweb-pdf" name="university_managment_system.template_report_degree" paperformat="university_managment_system.paperformat_degree"/>
+    <template id="template_report_degree">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page" style="text-align:center">
+
+                    <link rel="stylesheet" href="/university_managment_system/static/src/style.css"/>
+
+                    <br></br>
+                        <img 
+                            src="https://i.pinimg.com/originals/70/a1/cd/70a1cd77084d75ef1a034efb90590748.png"
+                            alt="loading ... "
+                            height = "50"
+                            width = "200"
+                        />
+                        
+                    <br></br>
+                    <br></br>
+
+                        <h4 class="universityname oldEnglishFontStyle">University Of Engineering &amp; Technology <br></br>
+                        Peshawar, Pakistan</h4>
+
+                        <h3 class="monotypefontstyle">By virtue of the granted by Statutes, the University has conferred the degree of </h3>
+                        
+                        <h4 class="degreename oldEnglishFontStyle">Bachelor of Science</h4>
+                        
+                        <p class="monotypefontstyle sameTextFont">in</p>
+                        
+                        <h4 class="departmentname oldEnglishFontStyle"><span t-esc="o.checklist.name"/></h4>
+                        
+                        <p class="monotypefontstyle sameTextFont">upon</p>
+                        
+                        <h4>
+                            <span t-esc="o.name"  class="studentname oldEnglishFontStyle"/>
+                        </h4>
+                        
+                        <h4 class="fathername oldEnglishFontStyle">Son of <span t-esc="o.fname" /> </h4>
+                        
+                        <p class="monotypefontstyle sameTextFont">who is entitled to all rights and honours thereto appertaining, <br></br>
+                        this 17<sup>th</sup> day of September, Two Thousand and Eighteen</p>
+                        
+
+                        <div style="position:relative; width:100%;">
+                            <div style="float:left; width:33%; bottom: 0;" class="registrar">
+                                <h4>Registrar</h4>
+                                <h4 class="regNumber">
+                                    Registration No. <span t-esc="o.reg_number"/>
+                                </h4>
+                            </div>
+
+                            <div style="float:left; width:34%;">
+                                <img 
+                                        src="https://upload.wikimedia.org/wikipedia/en/thumb/9/95/University_of_Engineering_and_Technology_Peshawar_logo.svg/1200px-University_of_Engineering_and_Technology_Peshawar_logo.svg.png"
+                                        alt="loading ... "
+                                        height = "150"
+                                        width = "150"
+                                />
+                            </div>
+
+                            <div style="float:right; width:33%; bottom: 0;" class="viceChancellor">
+                                <h4>Vice Chancellor</h4>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</flectra>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <record id="paperformat_transcript" model="report.paperformat">
+        <field name="name">Transcript</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">3</field>
+        <field name="margin_bottom">3</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">3</field>
+        <field name="dpi">80</field>
+    </record>
+    <report id="cms_transcript"
+          string="Transcript"
+          model="um.student"
+          report_type="qweb-pdf"
+          name="university_managment_system.transcript_cms_template" 
+          paperformat="university_managment_system.paperformat_transcript"/>
+    <template id="transcript_cms_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h4 style="text-align:center">University Of Engineering &amp; Technology Peshawar, Pakistan</h4>
+                        <table class = "center" style="width:90%">
+                            <tr>
+                                <td style="text-align:right" colspan="2">
+                                 Registraction No:
+                                    <b>
+                                        <span t-esc="o[0]['reg']"/>
+                                    </b>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="border-top:1px solid;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;text-align:center" colspan="2">
+                                    <b>TRANSCRIPT</b>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Student's Name:</b>
+                                    <span t-esc="o[0]['name']"/>
+                                </td>
+                                <td>
+                                    <b>Father's Name:</b>
+                                    <span t-esc="o[0]['f_name']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Program:</b>
+                                    <span t-esc="o[0]['prog']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Plan:</b>
+                                    <span t-esc="o[0]['plan']"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="center" style="width:90%">
+                            <tr>
+                                <td style="width:45%">
+                                    <table style="box-sizing:border-box;border: none;margin-left:3px; margin-right:3px;" align="left">
+                                        <tr>
+                                            <th style="width:20%;border:1px solid">Code</th>
+                                            <th style="width:40%;border-top:1px solid;border-bottom:1px solid;border-left:1px solid;text-align:center">Title</th>
+                                            <th style="width:20%;border-top:1px solid;border-bottom:1px solid;border-right:1px solid"></th>
+                                            <th style="border:1px solid">CH</th>
+                                            <th style="width:10%;border:1px solid">Grade</th>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:45%">
+                                    <table style="box-sizing:border-box;border: none;margin-left:3px; margin-right:3px;" align="left">
+                                        <tr>
+                                            <th style="width:20%;border:1px solid">Code</th>
+                                            <th style="width:40%;border-top:1px solid;border-bottom:1px solid;border-left:1px solid;text-align:center">Title</th>
+                                            <th style="width:20%;border-top:1px solid;border-bottom:1px solid;border-right:1px solid"></th>
+                                            <th style="border:1px solid">CH</th>
+                                            <th style="width:10%;border:1px solid">Grade</th>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <t t-foreach="o[1]" t-as="courses">
+                            <!-- <t t-foreach="courses" t-as="sub"> -->
+                            <!-- <p><span t-esc="len(courses)"/></p> -->
+                            <div style="float:left;width:45%;margin-left:69px">
+                                <t t-set="sub" t-value="courses[0]"/>
+                                <div class="row">
+                                    <div class="column" style="width:90%">
+                                        <table style="width:90%;box-sizing:border-box;border:none" >
+                                            <tr>
+                                                <td colspan= "5" style="text-align:center;border-bottom:1px solid">
+                                                    <b>
+                                                        <span t-esc="sub[-1]['semester_name']"/>
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                            <t t-foreach="sub[0:-1]" t-as="q">
+                                                <tr>
+                                                    <td style="width:20%;border-left:1px solid;border-right:1px solid">
+                                                        <span t-esc="q['code']"/>
+                                                    </td>
+                                                    <td style="width:40%">
+                                                        <span t-esc="q['name']"/>
+                                                    </td>
+                                                    <td style="width:20%;border-right:1px solid;text-align:center">
+                                                        <span t-esc="q['repeated']"/>
+                                                    </td>
+                                                    <td style="border-right:1px solid">
+                                                        <span t-esc="q['credit_hour']"/>
+                                                    </td>
+                                                    <td style="width:10%;border-right:1px solid;text-align:center">
+                                                        <span t-esc="q['grades']"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                            <!-- <t t-foreach="sub" t-as="e"> -->
+                                            <tr style="text-align:center">
+                                                <td style="width:20%;border-left:1px solid;border-top:1px solid">SCH:
+                                                    <b>
+                                                        <span t-esc="'%.2f'% sub[-1]['sch']"/>
+                                                    </b>
+                                                </td>
+                                                <td style="width:40%;border-top:1px solid">SGP:
+                                                    <b>
+                                                        <span t-esc="'%.2f'% sub[-1]['sgp']"/>
+                                                    </b>
+                                                </td>
+                                                <td style="width:20%;border-top:1px solid;text-align:center">SGPA:
+                                                    <b>
+                                                        <span t-esc="'%.2f'% sub[-1]['sgpa']"/>
+                                                    </b>
+                                                </td>
+                                                <td style="border-top:1px solid;text-align:center"></td>
+                                                <td style="width:10%;border-right:1px solid;border-top:1px solid;text-align:center"></td>
+                                            </tr>
+                                            <!-- </t> -->
+                                            <tr style="text-align:center">
+                                                <td style="width:20%;border-left:1px solid;border-bottom:1px solid">CCH:
+                                                    <b>
+                                                        <span t-esc="'%.2f'%sub[-1]['cch']"/>
+                                                    </b>
+                                                </td>
+                                                <td style="width:40%;border-bottom:1px solid">CGP:
+                                                    <b>
+                                                        <span t-esc="'%.2f'%sub[-1]['cgp']"/>
+                                                    </b>
+                                                </td>
+                                                <td style="width:20%;border-bottom:1px solid;text-align:center">CGPA:
+                                                    <b>
+                                                        <span t-esc="'%.2f'%sub[-1]['cgpa']"/>
+                                                    </b>
+                                                </td>
+                                                <td style="border-bottom:1px solid;text-align:center" ></td>
+                                                <td style="width:10%;border-bottom:1px solid;border-right:1px solid;text-align:center" ></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <t t-if="len(courses) == 2">
+                                <div style="float:right;width:45%;margin-right:6px">
+                                    <t t-set="sub" t-value="courses[1]"/>
+                                    <div class="row">
+                                        <div class="column" style="width:90%">
+                                            <table style="width:90%;box-sizing:border-box;border: none">
+                                                <tr>
+                                                    <td colspan= "5" style="text-align:center;border-bottom:1px solid">
+                                                        <b>
+                                                            <span t-esc="sub[-1]['semester_name']"/>
+                                                        </b>
+                                                    </td>
+                                                </tr>
+                                                <t t-foreach="sub[0:-1]" t-as="q">
+                                                    <tr>
+                                                        <td style="width:20%;border-left:1px solid;border-right:1px solid">
+                                                            <span t-esc="q['code']"/>
+                                                        </td>
+                                                        <td style="width:40%">
+                                                            <span t-esc="q['name']"/>
+                                                        </td>
+                                                        <td style="width:20%;border-right:1px solid;text-align:center">
+                                                            <span t-esc="q['repeated']"/>
+                                                        </td>
+                                                        <td style="border-right:1px solid">
+                                                            <span t-esc="q['credit_hour']"/>
+                                                        </td>
+                                                        <td style="width:10%;border-right:1px solid;text-align:center">
+                                                            <span t-esc="q['grades']"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <!-- <t t-foreach="sub" t-as="e"> -->
+                                                <tr style="text-align:center">
+                                                    <td style="width:20%;border-left:1px solid;border-top:1px solid">SCH:
+                                                        <b>
+                                                            <span t-esc="'%.2f'% sub[-1]['sch']"/>
+                                                        </b>
+                                                    </td>
+                                                    <td style="width:40%;border-top:1px solid">SGP:
+                                                        <b>
+                                                          <span t-esc="'%.2f'% sub[-1]['sgp']"/>
+                                                        </b>
+                                                    </td>
+                                                    <td style="width:20%;border-top:1px solid;text-align:center">SGPA:
+                                                        <b>
+                                                           <span t-esc="'%.2f'% sub[-1]['sgpa']"/>
+                                                        </b>
+                                                    </td>
+                                                    <td style="border-top:1px solid;text-align:center"></td>
+                                                    <td style="width:10%;border-right:1px solid;border-top:1px solid;text-align:center"></td>
+                                                </tr>
+                                                <!-- </t> -->
+                                                <tr style="text-align:center">
+                                                    <td style="width:20%;border-left:1px solid;border-bottom:1px solid">CCH:
+                                                        <b>
+                                                            <span t-esc="'%.2f'%sub[-1]['cch']"/>
+                                                        </b>
+                                                    </td>
+                                                    <td style="width:40%;border-bottom:1px solid">CGP:
+                                                        <b>
+                                                           <span t-esc="'%.2f'%sub[-1]['cgp']"/>
+                                                        </b>
+                                                    </td>
+                                                    <td style="width:20%;border-bottom:1px solid;text-align:center">CGPA:
+                                                        <b>
+                                                           <span t-esc="'%.2f'%sub[-1]['cgpa']"/>
+                                                        </b>
+                                                    </td>
+                                                    <td style="border-bottom:1px solid;text-align:center" ></td>
+                                                    <td style="width:10%;border-bottom:1px solid;border-right:1px solid;text-align:center" ></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <!-- <t t-if="len(courses) == 1">
+                                <div style="float:right">
+                            
+                                    <div class="row">
+                                        <div class="column">
+                                                    
+                                                </div>
+                                    </div>
+                                </div>
+                            </t> -->
+                            <!-- </t> -->
+                        </t>
+                        <table class="center" width="90%">
+                            <tr>
+                                <td>
+                                    <b>
+                                    "The Official Transcript Carries the embossed stamp of the University"
+                                </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                Transcript Prepared By:
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                Transcript Checked By:
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                Date Of issue:
+                            </td>
+                                <td style="text-align:center">
+                                    <b>
+                                    Controller of Examination
+                                </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>"Errors and Omissions are subject to the susequent rectification"</b>
+                                </td>
+                            </tr>
+                        </table>
+                        <style>
+                                  table, th, td, tr {font-size:9px;padding:2px}
+                                  .center {margin-left:50px ; margin-right:50px }
+                            <!-- .column{float: left; float: right; width:50%} -->
+                                  .row:before {content: ""; display: table; clear: both}
+                        </style>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</flectra>

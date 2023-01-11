@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+    <record id="action_student" model="ir.actions.server">
+            <field name="name">Students</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_um_student" />
+            <field name="state">code</field>
+            <field name="code">action=env.get('um.student').student_action_view()</field>
+    </record></data>
+
+    <!-- student menu-->
+
+     <!-- grade sheet menu-->
+    <act_window id="action_grade_sheet" name="Grade Sheet" res_model="um.gradesheet" view_mode="tree,form"/>
+
+    <!-- plan menu -->
+    <act_window id="action_plan" name="plan" res_model="um.plan" view_mode="tree,form"/>
+
+    <!-- program menu -->
+    <act_window id="action_program" name="program" res_model="um.program" view_mode="tree,form"/>
+
+     <!-- courses menu -->
+    <act_window id="action_courses" name="courses" res_model="um.course" view_mode="tree,form"/>
+    
+    <!-- semeter menu -->
+    <act_window id="action_semester" name="semester" res_model="um.semester" view_mode="tree,form"/>
+
+    <!-- Batch menu -->
+    <act_window id="action_batch" name="Batch" res_model="um.batch" view_mode="tree,form"/>
+
+    <!-- grades menu -->
+    <act_window id="action_grades" name="Grades" res_model="um.grades" view_mode="tree,form"/>
+
+   
+   <!-- Merged from here  -->
+
+       <!-- zubar khan -->
+    <!-- checklist menu -->
+    <act_window id="action_checklist" name="Checklist" res_model="degree.checklist" view_mode="tree,form"/>
+
+    <!-- Degree menu/ -->
+    <act_window id="action_degree_menu" name="Degree" res_model="um.degree" view_mode="tree,form"/>
+
+   <!-- Degree menu done? -->
+    <act_window id="action_degree_menu_done" name="Degree Done" res_model="um.degree" view_mode="tree,form" domain="[('verfied','=',True)]"/>
+
+
+   <!-- Degree menu in progress -->
+    <act_window id="action_degree_menu_in_progress" name="Degree In Progress" res_model="um.degree" view_mode="tree,form"  domain="[('verfied','=',False)]"/>
+   
+   <!-- ending mergin -->
+
+
+
+    <!-- main -->
+    <menuitem id="menu_main" 
+              name="CMS" 
+              sequence="10"
+              groups="university_managment_system.group_cms_student"/>
+
+    
+    <menuitem id="menu_student" 
+              name="Student" 
+              parent="menu_main" 
+              sequence="30" 
+              action="action_student"
+              />
+
+
+  <!-- ////////////////////////////
+     ////////////////////////////
+     //////////////////////////// -->
+
+
+     <menuitem id="menu_degree" 
+              name="Degree" 
+              parent="menu_main" 
+              sequence="40" 
+              action="action_degree_menu"
+              groups="group_cms_faculity,group_cms_admin"/>
+
+    <menuitem id="menu_degree_done" 
+                name="Done" 
+                parent="menu_degree" 
+                sequence="10" 
+                action="action_degree_menu_done"
+                groups="group_cms_faculity,group_cms_admin"/>
+
+
+    <menuitem id="menu_degree_in_progress" 
+                name="In Progress" 
+                parent="menu_degree" 
+                sequence="20" 
+                action="action_degree_menu_in_progress"
+                groups="group_cms_faculity,group_cms_admin"/>
+
+     <!-- ////////////////////////////
+     ////////////////////////////
+     //////////////////////////// -->
+
+              
+
+    <menuitem id="menu_grade_sheet" 
+              name="Grade Sheet" 
+              parent="menu_main" 
+              sequence="40" 
+              action="action_grade_sheet"
+              groups="group_cms_faculity,group_cms_admin"/>
+
+    <menuitem id="menu_configuration" 
+              name="Configuration"
+              parent="menu_main" 
+              sequence="50"
+              groups="group_cms_admin"/>
+
+    <menuitem id="menu_plan" 
+              name="Plan" 
+              parent="menu_configuration" 
+              sequence="30" 
+              action="action_plan"/>
+    
+    <menuitem id="menu_program" 
+              name="Program" 
+              parent="menu_configuration" 
+              sequence="30" 
+              action="action_program"/>
+
+    <menuitem id="menu_semester" 
+              name="Semester" 
+              parent="menu_configuration" 
+             sequence="30" 
+             action="action_semester"/> 
+
+    <menuitem id="menu_courses" 
+            name="Courses" 
+            parent="menu_configuration" 
+            sequence="30" 
+            action="action_courses"/>
+    
+
+    <menuitem id="menu_batch" 
+              name="Batch" 
+              parent="menu_configuration" 
+             sequence="30" 
+             action="action_batch"/>
+
+    <menuitem id="menu_grades" 
+              name="Grades" 
+              parent="menu_configuration" 
+             sequence="30" 
+             action="action_grades"/>
+    
+    <!-- //// Added by Zubair Khan -->
+<!-- //// Added by Zubair Khan -->
+<!-- //// Added by Zubair Khan -->
+        <menuitem id="menu_checklists" 
+                name="Checklist" 
+                parent="menu_configuration" 
+                sequence="40" 
+                action="action_checklist"
+                groups="group_cms_faculity,group_cms_admin"/>
+</flectra>

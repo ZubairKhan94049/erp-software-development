@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data>
+        <record id="view_kanban_student" model="ir.ui.view">
+            <field name="name">Student Kanban</field>
+            <field name="model">um.student</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click o_res_partner_kanban">
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="name"/>
+                                        </a>
+                                    </h4>
+                                    <ul>
+                                        <li t-if="record.phone.raw_value">
+                                            <field name="phone"/>
+                                        </li>
+                                        <li t-if="record.mobile.raw_value">
+                                            <field name="mobile"/>
+                                        </li>
+                                        <li t-if="record.email.raw_value">
+                                            <a t-attf-href="mailto:#{record.email.value}">
+                                                <field name="email"/>
+                                            </a>
+                                        </li>
+                                        <li t-if="record.language.raw_value">
+                                            <field name="language"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="view_um_student_tree" model="ir.ui.view">
+            <field name="name">um.student.tree</field>
+            <field name="model">um.student</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Student">
+                    <field name="name"/>
+                    <field name="blood_group"/>
+                    <field name="emergency_contact"/>
+                    <field name="nationality"/>
+                    <field name="language"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_form_student" model="ir.ui.view">
+            <field name ="name">view_form_student</field>
+            <field name="model">um.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <!-- <field name="image_1920" widget="image" class="oe_left oe_avatar"/> -->
+                        <h1>
+                            <field name="name" placeholder="Name" required="1" />
+                        </h1>
+                        <notebook>
+                            <page type="public" name="Personal_info" string="Personal Information">
+                                <group>
+                                    <group>
+                                        <field name ="father_name"/>
+                                        <field name="gender"/>
+                                        <field name="mobile"/>
+                                        <field name="email"/>
+                                        <filed name="email"/>
+                                    </group>
+                                    <group>
+                                        <field name="birth_date"/>
+                                        <field name="blood_group"/>
+                                        <field name="phone"/>
+                                        <field name="user_id"/>
+                                    </group>
+                                </group>
+                                <group string="Address Detail" name="address">
+                                    <label for="street" string="Address"/>
+                                    <div name="div_address">
+                                        <field name="street" placeholder="Street..."/>
+                                        <field name="street2" placeholder="Street2"/>
+                                        <div class="address_format">
+                                            <field name="city" placeholder="City" style="width: 40%"/>
+                                            <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%" options="{&quot;no_open&quot;: True}"/>
+                                            <field name="zip" placeholder="ZIP" style="width: 20%"/>
+                                        </div>
+                                        <field name="country_id" placeholder="Country" class="oe_no_button" options="{&quot;no_open&quot;: True}"/>
+                                        <br></br>
+                                        <field name="same_as_above" force_save="1"/>Same as above?
+                                    </div>
+                                    <label for="p_street" string="Permenant Address"/>
+                                    <div name="div_address">
+                                        <field name="p_street" placeholder="Street..."/>
+                                        <field name="p_street2" placeholder="Street2"/>
+                                        <div class="address_format">
+                                            <field name="p_city" placeholder="City" style="width: 40%"/>
+                                            <field name="p_state_id" class="oe_no_button" placeholder="State" style="width: 37%" options="{&quot;no_open&quot;: True}"/>
+                                            <field name="p_zip" placeholder="ZIP" style="width: 20%"/>
+                                        </div>
+                                        <field name="p_country_id" placeholder="Country" class="oe_no_button" options="{&quot;no_open&quot;: True}"/>
+                                    </div>
+                                </group>
+                            </page>
+                            <page type="public" name="educational" string="Educationa Info">
+                                <group>
+                                    <group>
+                                        <field name="reg_no"/>
+                                        <field name="program_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="plan_id"/>
+                                        <field name="batch_id"/>
+                                    </group>
+                                </group>
+                                <group string="Semester Details">
+                                    <field name="semester_ids" nolabel="1">
+                                        <tree editable="bottom" colors="gray:is_done==True" string="Semester Details">
+                                            <field name="name"/>
+                                            <field name="start_date"/>
+                                            <field name="end_date"/>
+                                            <field name="course_ids"/>
+                                            <!-- <field name="no_of_courses"/> -->
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page type="public" name="other_info" string="Other Info">
+                                <group>
+                                    <group>
+                                        <field name="nationality"/>
+                                        <field name="language"/>
+                                    </group>
+                                    <group>
+                                        <field name="visa_info"/>
+                                        <field name="partner_id" string="Related Contact"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_form_plan" model="ir.ui.view">
+            <field name ="name">view_form_plan</field>
+            <field name="model">um.plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" string="Plan"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_form_program" model="ir.ui.view">
+            <field name ="name">view_form_plan</field>
+            <field name="model">um.program</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" string="Program"/>
+                            <field name="plan_id" string="Plan"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_form_courses" model="ir.ui.view">
+            <field name ="name">view_form_courses</field>
+            <field name="model">um.course</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Course"/>
+                                <field name="code" string="Code"/>
+                                <field name="type" string="Type"/>
+                            </group>
+                            <group>
+                                <field name="semester_id"/>
+                                <field name="credit_hour"/>
+                                <field name="contact_hour"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_form_semester" model="ir.ui.view">
+            <field name ="name">view_form_semester</field>
+            <field name="model">um.semester</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Semester"/>
+                                <field name="no_of_courses"/>
+                                <field name="sch"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="courses" string="Courses">
+                                <field name="course_ids">
+                                    <tree editable="bottom" colors="gray:is_done==True" string="Course Details">
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="type"/>
+                                        <field name="credit_hour"/>
+                                        <field name="contact_hour"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_tree_semester" model="ir.ui.view">
+            <field name ="name">view_tree_semester</field>
+            <field name="model">um.semester</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Semester"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="no_of_courses"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_form_batch" model="ir.ui.view">
+            <field name ="name">view_form_batch</field>
+            <field name="model">um.batch</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Batch"/>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                            </group>
+                            <field name="program_id" string="Program"/>
+                            <field name="semester_id" string="Semester"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_tree_batch" model="ir.ui.view">
+            <field name ="name">view_tree_batch</field>
+            <field name="model">um.batch</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Batch"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="program_id"/>
+                    <field name="semester_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_form_grade" model="ir.ui.view">
+            <field name ="name">view_form_grade</field>
+            <field name="model">um.grades</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="marks" string ="Marks"/>
+                            <field name="name" string = "Grade"/>
+                            <field name="weightage" string="weightage"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_tree_grade" model="ir.ui.view">
+            <field name ="name">view_tree_grade</field>
+            <field name="model">um.grades</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="marks" string ="Marks"/>
+                    <field name="name" string = "Grade"/>
+                    <field name="weightage" string="weightage"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_um_gradesheet_form" model="ir.ui.view">
+            <field name="name">um.gradesheet.form</field>
+            <field name="model">um.gradesheet</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state2" widget="statusbar" class="oe_highlight" />
+                        <button name="action_submit" type="object" attrs="{'invisible':[('state2','in',['submitted','locked','cancel'])]}" string="Submit" class="oe_highlight"/>
+                        <button name="action_lock" type="object" attrs="{'invisible':[('state2','in',['draft','locked','cancel'])]}" string="Locked" class="oe_highlight"/>
+                        <button name="action_cancel" type="object" attrs="{'invisible':[('state2','in',['draft','cancel'])]}" string="Cancel" class="oe_highlight"/>
+                        <button name="action_reset" type="object" attrs="{'invisible':[('state2','in',['draft','locked','submitted'])]}" string="Reset" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state2','in',['locked','cancel'])]}"/>
+                                <field name="course_id" attrs="{'readonly':[('state2','in',['locked','cancel'])]}"/>
+                            </group>
+                            <group>
+                                <field name="semester_id" attrs="{'readonly':[('state2','in',['locked','cancel'])]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <button name="load_students" type="object" string="Load Students" class="oe_link" attrs="{'invisible':[('state2','in',['locked','cancel'])]}"/>
+                        </group>
+                        <group string="Students">
+                            <field name="student_ids" nolabel="1" attrs="{'readonly':[('state2','in',['locked','cancel'])]}">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="reg_no"/>
+                                    <field name="s_marks"/>
+                                    <field name="m_marks"/>
+                                    <field name="f_marks"/>
+                                    <field name="t_marks"/>
+                                    <field name="grades"/>
+                                    <field name="weightage"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_tree_grade_sheet" model="ir.ui.view">
+            <field name ="name">view_tree_grade_sheet</field>
+            <field name="model">um.gradesheet</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="semester_id"/>
+                    <field name="course_id"/>
+                    <field name="state2"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_form_student_semester" model="ir.ui.view">
+            <field name ="name">view_form_student_semester</field>
+            <field name="model">student.semester</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="no_of_courses"/>
+                                <field name="sch"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="sgp"/>
+                            </group>
+                        </group>
+                        <group string="Courses">
+                            <field name="course_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="type"/>
+                                    <field name="credit_hour"/>
+                                    <field name="grades"/>
+                                    <field name="weightage"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</flectra>
